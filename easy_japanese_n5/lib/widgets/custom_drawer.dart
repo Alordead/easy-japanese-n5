@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:easy_japanese_n5/pages/home_page.dart';
+import 'package:easy_japanese_n5/helpers/themes.dart';
+import 'package:easy_japanese_n5/pages/settings_page.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final ThemeBloc themeBloc;
+
+  CustomDrawer({Key key, this.themeBloc}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          Container(
-            height: 100.0,
-            color: Colors.black45,
-            child: Center(
-              child: ListTile(
-                title: Text("Домой"),
-                leading: Icon(Icons.home),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage(themeBloc: themeBloc,)),
+              );
+            },
+            child: Container(
+              height: 100.0,
+              color: Theme.of(context).primaryColor.withOpacity(0.85),
+              child: Center(
+                child: ListTile(
+                  title: Text("Домой", style: TextStyle(color: Colors.white),),
+                  leading: Icon(
+                    Icons.home,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ),
@@ -63,10 +81,18 @@ class CustomDrawer extends StatelessWidget {
               radius: 16.0,
               child: Icon(
                 Icons.settings,
-                color: Colors.white,
+                color: Theme.of(context).textTheme.title.color,
               ),
               backgroundColor: Colors.transparent,
             ),
+            onTap:  () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SettingsPage(themeBloc: themeBloc,)
+                ),
+              );
+            }
           ),
         ],
       ),
