@@ -13,7 +13,7 @@ import 'package:easy_japanese_n5/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(RoutePage());
+    await tester.pumpWidget(EasyJapaneseApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

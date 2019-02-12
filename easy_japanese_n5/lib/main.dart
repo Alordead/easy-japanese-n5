@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
-
-final appTitle = "Easy Japanese N5!";
+import 'package:easy_japanese_n5/pages/home_page.dart';
 
 final ThemeData kDefaultTheme = ThemeData(
   brightness: Brightness.dark,
-  accentColor: Colors.blueGrey,
+  primaryColor: Colors.blueGrey,
   primarySwatch: Colors.grey,
 );
 
-void main() => runApp(RoutePage());
+void main() => runApp(EasyJapaneseApp());
 
-class RoutePage extends StatelessWidget {
+class EasyJapaneseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: appTitle,
       theme: kDefaultTheme,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(appTitle),
-        ),
-        body: Center(
-          child: Text(appTitle),
-        ),
-      ),
+      home: HomePage(),
     );
   }
 }
