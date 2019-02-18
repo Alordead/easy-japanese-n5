@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_japanese_n5/widgets/custom_drawer.dart';
 import 'settings_page.dart';
+import 'practice/home_practice_page.dart';
 
 final appTitle = "Easy Japanese N5!";
 
@@ -36,7 +37,11 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePracticePage(),)
+          );
         }
         ),
     );

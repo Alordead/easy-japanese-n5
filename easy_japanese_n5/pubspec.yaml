@@ -17,6 +17,8 @@ dependencies:
     sdk: flutter
   rxdart: ^0.20.0
   shared_preferences: ^0.5.1
+  sqflite: any
+  path_provider: any
   flutter_localizations:
     sdk: flutter
 
@@ -45,6 +47,8 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+  assets:
+    - assets/database.db
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
