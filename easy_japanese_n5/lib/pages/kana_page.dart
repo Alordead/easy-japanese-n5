@@ -9,6 +9,15 @@ class KanaPage extends StatefulWidget {
 }
 
 class KanaPageState extends State<KanaPage> {
+
+  bool isTapped;
+
+  @override
+  void initState() {
+    isTapped = true;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -22,6 +31,16 @@ class KanaPageState extends State<KanaPage> {
               Tab(text: "Катакана",)
             ],
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: isTapped ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
+              onPressed: () {
+               setState(() {
+                 isTapped = !isTapped;
+               });
+              },
+            ),
+          ],
         ),
         drawer: CustomDrawer(),
         body: TabBarView(
@@ -59,7 +78,7 @@ class KanaPageState extends State<KanaPage> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
           itemCount: snapshot.data.length,
           itemBuilder: (context, position) {
-            return Card(
+            return snapshot.data[position].sign != "" ? Card(
               child: InkWell(
                 onTap: () {
                   
@@ -68,12 +87,15 @@ class KanaPageState extends State<KanaPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    isTapped ? Container(child: Text(snapshot.data[position].sign, style: TextStyle(fontSize: 32.0),),)
+                    : Column(children: <Widget>[
                     Text(snapshot.data[position].sign, style: TextStyle(fontSize: 32.0),),
                     Text(snapshot.data[position].reading),
+                    ],),
                   ],
                 ),
               ),
-            );
+            ) : Container();
           }
       );
     } else {
