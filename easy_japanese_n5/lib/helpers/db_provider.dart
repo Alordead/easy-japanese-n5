@@ -10,6 +10,7 @@ class DBProvider {
   DBProvider._();
 
   final String kDatabaseName = "database.db";
+  final List<String> tables = ["hiragana", "katakana", "kanji", "words", "grammar"];
   static final DBProvider db = DBProvider._();
 
   Database _database;
@@ -38,9 +39,11 @@ class DBProvider {
     return res.isNotEmpty ? Kana.fromMap(res.first) : null;
   }
 
-  Future<List<Kana>> getAllSigns() async {
+  Future<List<Kana>> getAllKanaSigns(String tableName) async {
+    assert(tables.contains(tableName));
+    
     final db = await database;
-    var res = await db.query("hiragana");
+    var res = await db.query(tableName);
     print(res);
 
     List<Kana> list =
