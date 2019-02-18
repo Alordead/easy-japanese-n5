@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:easy_japanese_n5/model/kana_model.dart';
+import 'package:path_provider/path_provider.dart';
 
 class DBProvider {
   DBProvider._();
@@ -22,9 +23,9 @@ class DBProvider {
   }
 
   initDB() async {
-    var databasesPath = await getDatabasesPath();
+    var documentsDirectory = await getApplicationDocumentsDirectory();
 
-    String path = join(databasesPath, kDatabaseName);
+    String path = join(documentsDirectory.path, kDatabaseName);
 
     ByteData data = await rootBundle.load(join("assets", kDatabaseName));
     List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
