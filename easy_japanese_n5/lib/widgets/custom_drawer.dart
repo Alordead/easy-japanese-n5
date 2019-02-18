@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:easy_japanese_n5/pages/home_page.dart';
-import 'package:easy_japanese_n5/helpers/themes.dart';
 import 'package:easy_japanese_n5/pages/settings_page.dart';
+import 'package:easy_japanese_n5/pages/kana_page.dart';
 
 class CustomDrawer extends StatelessWidget {
-  final ThemeBloc themeBloc;
-
-  CustomDrawer({Key key, this.themeBloc}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -17,7 +13,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage(themeBloc: themeBloc,)),
+                MaterialPageRoute(builder: (context) => HomePage()),
               );
             },
             child: Container(
@@ -41,6 +37,13 @@ class CustomDrawer extends StatelessWidget {
               child: Text("あ", style: TextStyle(color: Colors.white),),
               backgroundColor: Colors.blue[400],
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => KanaPage(),)
+                );
+            },
           ),
           ListTile(
             title: Text("Кандзи"),
@@ -89,7 +92,7 @@ class CustomDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SettingsPage(themeBloc: themeBloc,)
+                    builder: (context) => SettingsPage()
                 ),
               );
             }

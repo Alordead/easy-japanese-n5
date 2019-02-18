@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_japanese_n5/widgets/custom_drawer.dart';
-import 'package:easy_japanese_n5/helpers/themes.dart';
 import 'settings_page.dart';
 
 final appTitle = "Easy Japanese N5!";
 
 class HomePage extends StatelessWidget {
-  final ThemeBloc themeBloc;
-
-  HomePage({Key key, this.themeBloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +17,13 @@ class HomePage extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SettingsPage(themeBloc: themeBloc,)),
+              MaterialPageRoute(builder: (context) => SettingsPage()),
             );
           },
           ),
         ],
      ),
-      drawer: CustomDrawer(themeBloc: themeBloc,),
+      drawer: CustomDrawer(),
       body: Center(
         child: Text(appTitle),
       ),

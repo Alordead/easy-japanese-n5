@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:easy_japanese_n5/helpers/themes.dart';
+import 'package:easy_japanese_n5/helpers/theme_switcher.dart';
 
 class SettingsPage extends StatefulWidget {
-  final ThemeBloc themeBloc;
-
-  SettingsPage({Key key, this.themeBloc}) : super(key: key);
-
   @override
   SettingsPageState createState() => SettingsPageState();
 }
 
 class SettingsPageState extends State<SettingsPage> {
-  bool _enabled;
+  bool _value;
 
   @override
   Widget build(BuildContext context) {
-    _enabled = Theme.of(context).brightness == Brightness.dark;
+    final ThemeSwitcher inheritedThemeSwitcher = ThemeSwitcher.of(context);
+    _value = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: Text("Настройки"),
@@ -28,14 +25,13 @@ class SettingsPageState extends State<SettingsPage> {
             children: <Widget>[
               Text("Темная тема"),
               Switch(
-                value: _enabled,
+                value: _value,
                 onChanged: (bool value) {
                   setState(() {
-                    _enabled = value;
-                    _enabled
-                        ? widget.themeBloc.selectedTheme.add(_buildDarkTheme())
-                        : widget.themeBloc.selectedTheme
-                            .add(_buildLightTheme());
+                    _value = value;
+                    _value
+                        ? inheritedThemeSwitcher.themeBloc.selectedTheme.add(inheritedThemeSwitcher.themeBloc.setTheme("dark"))
+                        : inheritedThemeSwitcher.themeBloc.selectedTheme.add(inheritedThemeSwitcher.themeBloc.setTheme("light"));
                   });
                 },
               ),
@@ -45,24 +41,4 @@ class SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-}
-
-AppTheme _buildDarkTheme() {
-  return AppTheme(
-      'dark',
-      ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.blueGrey,
-        primarySwatch: Colors.grey,
-      ));
-}
-
-AppTheme _buildLightTheme() {
-  return AppTheme(
-      'light',
-      ThemeData(
-        brightness: Brightness.light,
-        accentColor: Colors.redAccent,
-        primaryColor: Colors.red,
-      ));
 }
