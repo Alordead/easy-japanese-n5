@@ -8,15 +8,11 @@ class SharedPreferencesHelper {
 
   static Future<String> getAppTheme() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String appThemePrefs = prefs.getString(_kAppTheme);
-    if (appThemePrefs == null) {
-      return "initial";
-    }
-    return appThemePrefs == "light" ? "light" : "dark";
+    return prefs.get(_kAppTheme) ?? 'initial';
   }
 
-  static setAppTheme(String appTheme) async {
+  static Future<bool> setAppTheme(String appTheme) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(_kAppTheme, _themes.contains(appTheme) ? appTheme : 'dark');
+    return prefs.setString(_kAppTheme, appTheme);
   }
 }

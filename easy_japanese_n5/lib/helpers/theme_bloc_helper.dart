@@ -23,8 +23,7 @@ class ThemeBloc {
   const ThemeBloc._(this.themeDataStream, this.selectedTheme);
 
   AppTheme getTheme(String appTheme) {
-    String sharedAppTheme = appTheme;
-    switch (sharedAppTheme) {
+    switch (appTheme) {
       case "light": return _buildLightTheme();
       case "dark": return _buildDarkTheme();
       default: return _buildInitialTheme();
