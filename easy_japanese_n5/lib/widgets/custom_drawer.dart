@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:easy_japanese_n5/pages/home_page.dart';
-import 'package:easy_japanese_n5/pages/settings_page.dart';
 import 'package:easy_japanese_n5/pages/kana_page.dart';
+import 'package:easy_japanese_n5/pages/kanji_page.dart';
+import 'package:easy_japanese_n5/pages/words_page.dart';
+import 'package:easy_japanese_n5/pages/grammar_page.dart';
+import 'package:easy_japanese_n5/pages/settings_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -52,6 +56,13 @@ class CustomDrawer extends StatelessWidget {
               child: Text("本", style: TextStyle(color: Colors.white),),
               backgroundColor: Colors.green[400],
             ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => KanjiPage(),)
+              );
+            },
           ),
           ListTile(
             title: Text("Слова"),
@@ -64,6 +75,13 @@ class CustomDrawer extends StatelessWidget {
               ),
               backgroundColor: Colors.red[400],
             ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WordsPage(),)
+              );
+            },
           ),
           ListTile(
             title: Text("Грамматика"),
@@ -76,6 +94,13 @@ class CustomDrawer extends StatelessWidget {
               ),
               backgroundColor: Colors.purple[400],
             ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GrammarPage(),)
+              );
+            },
           ),
           Divider(),
           ListTile(
