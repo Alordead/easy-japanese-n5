@@ -4,7 +4,10 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+
 import 'package:easy_japanese_n5/model/kana_model.dart';
+import 'package:easy_japanese_n5/model/kanji_model.dart';
+
 import 'package:path_provider/path_provider.dart';
 
 class DBProvider {
@@ -49,6 +52,15 @@ class DBProvider {
 
     List<Kana> list =
     res.isNotEmpty ? res.map((c) => Kana.fromMap(c)).toList() : [];
+
+    return list;
+  }
+
+  Future<List<Kanji>> getAllKanjiSigns() async {
+    final db = await database;
+    var res = await db.query("kanji");
+
+    List<Kanji> list = res.isNotEmpty ? res.map((c) => Kanji.fromMap(c)).toList() : [];
 
     return list;
   }
