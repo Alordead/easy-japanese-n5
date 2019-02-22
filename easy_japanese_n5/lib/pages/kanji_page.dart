@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_japanese_n5/widgets/custom_drawer.dart';
 import 'package:easy_japanese_n5/model/kanji_model.dart';
 import 'package:easy_japanese_n5/helpers/db_provider.dart';
+import 'package:easy_japanese_n5/widgets/animated_progress_chart.dart';
 
 class KanjiPage extends StatefulWidget {
   @override
@@ -22,32 +23,52 @@ class KanjiPageState extends State<KanjiPage> {
 
   Widget kanjiListBuilder() {
     return FutureBuilder<List<Kanji>>(
-      future:  DBProvider.db.getAllKanjiSigns(),
-      builder: (BuildContext context, AsyncSnapshot<List<Kanji>> snapshot) {
-        if (snapshot.hasData) {
-          return ListView.builder(
-            padding: EdgeInsets.all(8.0),
-            itemBuilder: (_, int index) => kanjiListViewItem(snapshot.data[index]),
-            itemCount: snapshot.data.length,
-          );
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      }
-    );
+        future: DBProvider.db.getAllKanjiSigns(),
+        builder: (BuildContext context, AsyncSnapshot<List<Kanji>> snapshot) {
+          if (snapshot.hasData) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Column(
+                  children: <Widget>[
+                    Expanded(
+                        flex: 5,
+                        child: AnimatedProgressChart(
+                            totalCount: snapshot.data.length,
+                            completedCount: snapshot.data.length,
+                        ),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: ListView.builder(
+                        padding: EdgeInsets.all(8.0),
+                        itemBuilder: (_, int index) =>
+                            kanjiListViewItem(snapshot.data[index]),
+                        itemCount: snapshot.data.length,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
   }
 
   Widget kanjiListViewItem(Kanji kanji) {
     return Card(
       child: InkWell(
-        onTap: () {
-
-        },
+        onTap: () {},
         child: Row(
           children: <Widget>[
             Container(
-              child: Text(kanji.sign, style: TextStyle(fontSize: 32.0),),
-              padding: EdgeInsets.all(4.0),),
+              child: Text(
+                kanji.sign,
+                style: TextStyle(fontSize: 32.0),
+              ),
+              padding: EdgeInsets.all(4.0),
+            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(
@@ -59,7 +80,11 @@ class KanjiPageState extends State<KanjiPage> {
               ),
             ),
             Container(
-              child: Text(kanji.meaning, style: TextStyle(fontSize: 16.0), textAlign: TextAlign.center,),
+              child: Text(
+                kanji.meaning,
+                style: TextStyle(fontSize: 16.0),
+                textAlign: TextAlign.center,
+              ),
               padding: EdgeInsets.all(4.0),
             ),
           ],
